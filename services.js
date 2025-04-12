@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       trigger: serviceSection,
       start: "top center",
       end: "bottom top",
+      markers: true,
       onEnter: () => toggleY(tabsNav, 0),
       onLeave: () => toggleY(tabsNav, 150),
       onEnterBack: () => toggleY(tabsNav, 0),
