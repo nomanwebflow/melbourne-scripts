@@ -14,26 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function setButtonWidths() {
-  const rootFontSize = parseFloat(
-    getComputedStyle(document.documentElement).fontSize
-  );
-
-  const buttons = document.querySelectorAll(".service_tab_button");
-
-  if (window.innerWidth > 768) {
-    buttons.forEach((el) => {
-      const widthInRem = el.offsetWidth / rootFontSize;
-      el.style.width = `${widthInRem}rem`;
-    });
-  } else {
-    // Reset inline styles on smaller screens
-    buttons.forEach((el) => {
-      el.style.width = "";
-    });
-  }
-}
-
 window.addEventListener("load", setButtonWidths);
 window.addEventListener("resize", setButtonWidths);
 
@@ -66,8 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!serviceSection || !tabsNav || !nav) return;
     ScrollTrigger.create({
       trigger: serviceSection,
-      start: "top center",
-      end: "bottom top",
+      start: "top 75%",
+      end: "bottom bottom",
       markers: true,
       onEnter: () => toggleY(tabsNav, 0),
       onLeave: () => toggleY(tabsNav, 150),
