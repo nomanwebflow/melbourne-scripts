@@ -14,10 +14,16 @@ window.addEventListener("load", function () {
     getComputedStyle(document.documentElement).fontSize
   );
 
-  document.querySelectorAll(".service_tab_button").forEach((element) => {
-    let widthInRem = element.offsetWidth / rootFontSize;
-    element.style.width = widthInRem + "rem";
-  });
+  if (window.innerWidth > 768) {
+    const rootFontSize = parseFloat(
+      getComputedStyle(document.documentElement).fontSize
+    );
+
+    document.querySelectorAll(".service_tab_button").forEach((element) => {
+      let widthInRem = element.offsetWidth / rootFontSize;
+      element.style.width = widthInRem + "rem";
+    });
+  }
 });
 
 $(document).ready(function () {
@@ -86,40 +92,68 @@ $(document).ready(function () {
     }
   });
 
-  // Swiper & Tabs functionality
-  $(".service_section").each(function () {
-    const $section = $(this);
-    const $buttons = $section.find(".service_tab_button");
-    const navCorners = $section.find(".service_tab_bg")[0];
+  if (serviceSection) {
+    ScrollTrigger.create({
+      trigger: serviceSection,
+      start: "top center",
+      end: "bottom top",
+      onEnter: () => {
+        gsap.to(tabsNav, {
+          yPercent: 0,
+        });
+      },
+      onLeave: () => {
+        gsap.to(tabsNav, {
+          yPercent: 150,
+        });
+      },
+      onEnterBack: () => {
+        gsap.to(tabsNav, {
+          yPercent: 0,
+        });
+      },
+      onLeaveBack: () => {
+        gsap.to(tabsNav, {
+          yPercent: 150,
+        });
+      },
+    });
+  }
+});
 
-    function moveBgTo(button) {
-      if (!button || button === navCorners.parentNode) return;
-      const state = Flip.getState(navCorners);
-      button.appendChild(navCorners);
-      Flip.from(state, { duration: 0.4, ease: "power1.inOut", absolute: true });
-    }
+// Swiper & Tabs functionality
+$(".service_section").each(function () {
+  const $section = $(this);
+  const $buttons = $section.find(".service_tab_button");
+  const navCorners = $section.find(".service_tab_bg")[0];
 
-    // Observe class changes on each button
-    const observer = new MutationObserver((mutationsList) => {
-      for (const mutation of mutationsList) {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "class"
-        ) {
-          const target = mutation.target;
-          if (target.classList.contains("w--current")) {
-            moveBgTo(target);
-          }
+  function moveBgTo(button) {
+    if (!button || button === navCorners.parentNode) return;
+    const state = Flip.getState(navCorners);
+    button.appendChild(navCorners);
+    Flip.from(state, { duration: 0.4, ease: "power1.inOut", absolute: true });
+  }
+
+  // Observe class changes on each button
+  const observer = new MutationObserver((mutationsList) => {
+    for (const mutation of mutationsList) {
+      if (
+        mutation.type === "attributes" &&
+        mutation.attributeName === "class"
+      ) {
+        const target = mutation.target;
+        if (target.classList.contains("w--current")) {
+          moveBgTo(target);
         }
       }
-    });
-
-    $buttons.each(function () {
-      observer.observe(this, { attributes: true, attributeFilter: ["class"] });
-    });
-
-    // On load: Move background to the button with class w--current
-    const current = $section.find(".service_tab_button.w--current")[0];
-    moveBgTo(current);
+    }
   });
+
+  $buttons.each(function () {
+    observer.observe(this, { attributes: true, attributeFilter: ["class"] });
+  });
+
+  // On load: Move background to the button with class w--current
+  const current = $section.find(".service_tab_button.w--current")[0];
+  moveBgTo(current);
 });
