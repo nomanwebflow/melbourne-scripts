@@ -52,6 +52,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const mm = gsap.matchMedia();
 
+  mm.add("(max-width: 767px)", () => {
+    if (!serviceSection || !tabsNav || !nav) return;
+    ScrollTrigger.create({
+      trigger: serviceSection,
+      start: "top center",
+      end: "bottom top",
+      onEnter: () => toggleY(tabsNav, 0),
+      onLeave: () => toggleY(tabsNav, 150),
+      onEnterBack: () => toggleY(tabsNav, 0),
+      onLeaveBack: () => toggleY(tabsNav, 150),
+    });
+  });
+  
   mm.add("(min-width: 768px)", () => {
     if (!serviceSection || !tabsNav || !nav) return;
 
