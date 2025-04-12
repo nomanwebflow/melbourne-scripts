@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     ScrollTrigger.create({
       trigger: serviceSection,
-      start: "top center",
-      end: "bottom top",
+      start: "top 75%",
+      end: "bottom bottom",
       onEnter: () => toggleY(tabsNav, 0),
       onLeave: () => toggleY(tabsNav, 150),
       onEnterBack: () => toggleY(tabsNav, 0),
