@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
+ 
 window.addEventListener("load", setButtonWidths);
 window.addEventListener("resize", setButtonWidths);
 
