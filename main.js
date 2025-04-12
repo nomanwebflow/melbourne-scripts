@@ -579,3 +579,10 @@ document.addEventListener("DOMContentLoaded", () => {
     content: "Tooltip",
   });
 });
+
+window.addEventListener('load', function() {
+  const footer = document.querySelector('.footer_component');
+  if (footer && footer.offsetHeight > window.innerHeight) {
+    footer.style.position = 'relative';
+  }
+});

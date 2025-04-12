@@ -1,5 +1,3 @@
-alert("hello");
-
 document.addEventListener("DOMContentLoaded", () => {
   const MENU_BUTTON_SELECTOR = ".service_tab_button";
   const menuBtns = document.querySelectorAll(MENU_BUTTON_SELECTOR);
